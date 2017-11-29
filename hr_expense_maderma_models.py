@@ -24,7 +24,7 @@ class hr_expense_expense(models.Model):
                 ('evento','Evento con cliente'),
                 ('capacitacion','Capacitacion')
                 ],'',help='Motivo de gasto')
-        amount = fields.Float(compute='_amount',store=True)                     #volvemos a declarar el campo amount que es un campo calculado
+        amount = fields.Float(compute='_amount',store=True)                     
 
 
 class hr_expense_line(models.Model):
