@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<!-- Vista que agrega campos a gastos "Cliente","Ciudad de gasto","Motivo de gasto" y quita la pestaña contabilidad-->
+    <record id="expense_maderma" model="ir.ui.view">
+        <field name="name">Expense_Maderma</field>
+        <field name="model">hr.expense.expense</field>
+<!--    <field name="priority">25</field> -->
+                <field name="inherit_id" ref="hr_expense.view_expenses_form"/>
+                <field name="arch" type="xml">
+                        <xpath expr="//field[@name='name']" position="after">
+                                <field name="motivos" string="Motivo del gasto"  widget="selection" placeholder="Selecciona el motivo de gasto"/>
+                        </xpath>
+                        <xpath expr="//field[@name='date']" position="attributes">
+                                <attribute name="readonly">["1"]</attribute>
+                                <attribute name="string">Fecha de creacion</attribute>
+                        </xpath>
+                        <xpath expr="//field[@name='currency_id']" position="attributes">
+                                <attribute name="groups">base.group_hr_manager</attribute>
+                        </xpath>
+                        <xpath expr="//field[@name='name']" position="after">
+                                <field name="state_ids" string="Ciudad del gasto" domain="[('country_id.id','=','157')]"/>
+
+                        </xpath>
+                        <xpath expr="//field[@name='name']" position="after">
+                                <field name="partner_ids" string="Clientes" widget="many2many_tags" domain="[('customer','=',True)]"/>
+                        </xpath>
+                        <xpath  expr="/form/sheet/notebook/page[@string='Accounting']" position="attributes">
+                                <!--<attribute name="invisible">["1"]</attribute>-->
+                                <attribute name="groups">base.group_hr_manager</attribute>
+                        </xpath>
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='product_id']" position="attributes">
+                                <attribute name="domain">['|',('id','=',60),'|',('id','=',64),'|',('id','=',956),'|',('id','=',61),'|',('id','=',62),'|',('id','=',59),'|',('id','=',65),'|',('id','=',63),('id','=',66)]</attribute>
+                        </xpath>
+
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='ref']" position="attributes">
+                                <attribute name="string">Factura</attribute>
+                                <attribute name="required">["1"]</attribute>
+                        </xpath>
+
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='unit_amount']" position="after">
+                                <field name="tax_line" string="Impuestos" sum="Impuestos"/>
+                        </xpath>
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='total_amount']" position="attributes">
+                                <attribute name="invisible">["1"]</attribute>
+                        </xpath>
+
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='date_value']" position="attributes">
+                                <attribute name="string">Fecha de factura</attribute>
+                        </xpath>
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='unit_amount']" position="attributes">
+                                <attribute name="string">Precio</attribute>
+                                <attribute name="sum">Total</attribute>
+                        </xpath>
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='uom_id']" position="attributes">
+                                <attribute name="invisible">["1"]</attribute>
+                        </xpath>
+
+
+                        <field name="department_id" position="attributes">
+                                <attribute name="invisible">["1"]</attribute>
+                        </field>
+                        <xpath expr="/form/sheet/notebook/page[@string='Description']//tree//field[@name='unit_quantity']" position="attributes">
+                                <attribute name="invisible">["1"]</attribute>
+                        </xpath>
+                </field>
+    </record>
+
+</data>
+</openerp>
