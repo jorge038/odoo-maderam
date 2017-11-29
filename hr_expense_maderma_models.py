@@ -48,4 +48,4 @@ class hr_expense_line(models.Model):
                                         tax += l.amount * line.unit_amount
                                 line.tax_line=tax
 
-        tax_line=fields.Float(compute='_tax_line',store=True)           # declaramos el campo tax_line que almacenara el iva de el producto
+        tax_line=fields.Float(compute='_tax_line',store=True)           
